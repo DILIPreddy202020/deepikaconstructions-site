@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "Deepika Constructions (Static Server)",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3000"],
+      "runtimeExecutable": "/opt/homebrew/bin/npx",
+      "runtimeArgs": ["serve", "/Users/dilip/Downloads/deepikaconstructions-main", "-p", "3000", "--no-clipboard"],
       "port": 3000
     }
   ]

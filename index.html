@@ -67,6 +67,8 @@ nav{position:sticky;top:0;z-index:500;background:var(--white);box-shadow:0 2px 1
 /* ── HERO ── */
 .hero{position:relative;width:100%;height:90vh;min-height:520px;overflow:hidden;}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+/* On mobile: hide video, show poster image only — saves 3–6MB download */
+@media(max-width:768px){.hero-video{display:none;}.hero{background:url('images/img_816e572139.jpg') center/cover no-repeat;}}
 .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:1;}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .9s;z-index:2;pointer-events:none;}
 .slide.on{opacity:1;pointer-events:auto;}
@@ -494,7 +496,7 @@ img{transition:opacity .4s ease;}
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="goPage('home')">
-    <img loading="lazy" src="images/img_67082db683.png" alt="Deepika Constructions"/>
+    <img loading="lazy" src="images/img_67082db683.webp" alt="Deepika Constructions"/>
   </div>
   <div class="nav-links">
     <a onclick="goPage('home')" id="n-home" class="act">Home</a>
@@ -585,7 +587,7 @@ img{transition:opacity .4s ease;}
 <!-- RMC INTRO -->
 <div class="split">
   <div class="split-visual">
-    <img loading="lazy" src="images/img_67082db683.png" alt="Deepika Constructions" style="width:90%;max-width:360px;object-fit:contain;display:block;"/>
+    <img loading="lazy" src="images/img_67082db683.webp" alt="Deepika Constructions" style="width:90%;max-width:360px;object-fit:contain;display:block;"/>
     <div style="text-align:center;margin-top:20px;color:#888;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Est. 2012 · Thukkuguda, Hyderabad</div>
   </div>
   <div class="split-panel">
@@ -617,7 +619,7 @@ img{transition:opacity .4s ease;}
     <div class="cta-row"><button class="btn btn-dark" onclick="goPage('roads')">Road Works</button><button class="btn btn-gold" onclick="goPage('projects')">View Projects →</button></div>
   </div>
   <div style="position:relative;overflow:hidden;min-height:460px;">
-    <video autoplay muted loop playsinline preload="auto" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+    <video autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
       <source src="video_1.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:rgba(0,0,0,.35);"></div>
@@ -717,7 +719,7 @@ img{transition:opacity .4s ease;}
 <!-- QUALITY VIDEO -->
 <section class="sec sec-gray" style="padding:0;overflow:hidden;">
   <div style="position:relative;width:100%;background:#000;">
-    <video autoplay muted loop playsinline style="width:100%;height:auto;display:block;">
+    <video autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;">
       <source src="video_2.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.65) 40%,transparent);display:flex;align-items:center;padding:0 6%;">
@@ -804,7 +806,7 @@ img{transition:opacity .4s ease;}
     </div>
     <div>
       <div style="position:relative;overflow:hidden;border-radius:4px;min-height:420px;">
-        <video autoplay muted loop playsinline preload="auto" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <video autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <source src="video_3.mp4" type="video/mp4">
         </video>
         <div style="position:absolute;inset:0;background:rgba(0,0,0,.3);"></div>
@@ -889,7 +891,7 @@ img{transition:opacity .4s ease;}
   </div>
   <div class="ag-grid">
     <div class="ag-item"><img src="images/img_bd622352ee.jpg" alt="Venture Project 1" loading="lazy"/></div>
-    <div class="ag-item"><img src="images/img_f14df171ab.png" alt="Venture Project 2" loading="lazy"/></div>
+    <div class="ag-item"><img src="images/img_f14df171ab.webp" alt="Venture Project 2" loading="lazy"/></div>
     <div class="ag-item"><img src="images/img_79388fd9de.jpg" alt="Venture Project 3" loading="lazy"/></div>
     <div class="ag-item"><img src="images/img_a7aa8a2f97.webp" alt="Venture Project 4" loading="lazy"/></div>
     <div class="ag-item"><img src="images/img_1cb94e6176.jpg" alt="Venture Project 5" loading="lazy"/></div>
@@ -932,7 +934,7 @@ img{transition:opacity .4s ease;}
 
 <div class="split">
   <div class="split-visual">
-    <img loading="lazy" src="images/img_67082db683.png" alt="Deepika Constructions" style="width:90%;max-width:360px;object-fit:contain;display:block;"/>
+    <img loading="lazy" src="images/img_67082db683.webp" alt="Deepika Constructions" style="width:90%;max-width:360px;object-fit:contain;display:block;"/>
     <div style="text-align:center;margin-top:20px;color:#888;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Est. 2012 · Thukkuguda, Hyderabad</div>
   </div>
   <div class="split-panel">
@@ -1013,7 +1015,7 @@ img{transition:opacity .4s ease;}
 <footer>
   <div class="footer-main">
     <div class="footer-logo">
-      <img loading="lazy" src="images/img_67082db683.png" alt="Deepika Constructions"/>
+      <img loading="lazy" src="images/img_67082db683.webp" alt="Deepika Constructions"/>
       <p>Hyderabad's trusted RMC producer and road contractor. IS-code compliant concrete, delivered fresh. Quality roads, built on time.</p>
     </div>
     <div class="fcol"><h5>Quick Links</h5><ul>
