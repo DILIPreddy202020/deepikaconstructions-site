@@ -453,10 +453,23 @@ footer{border-top:3px solid var(--gold);}
 .btn-gold{box-shadow:0 4px 14px rgba(245,197,24,.3);}
 .btn-gold:hover{box-shadow:0 6px 20px rgba(245,197,24,.5);}
 
-/* Smooth image loading */
-img{transition:opacity .3s ease;}
-img[loading="lazy"]{opacity:0;}
-img[loading="lazy"].loaded{opacity:1;}
+/* Fix btn size */
+.btn{font-size:13px !important;letter-spacing:1.5px !important;padding:11px 22px !important;}
+
+/* Outline/ghost button for hero slides */
+.btn-outline{background:transparent !important;color:#fff !important;border:2px solid rgba(255,255,255,.6) !important;backdrop-filter:blur(4px);}
+.btn-outline:hover{background:rgba(255,255,255,.18) !important;border-color:#fff !important;box-shadow:0 6px 20px rgba(255,255,255,.15) !important;}
+
+/* Hero slide button row */
+.slide-btns{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.slide-btns .btn{min-width:160px;justify-content:center;}
+
+/* Hero nav arrows */
+.ha{border-radius:4px;transition:background .2s,color .2s,transform .2s;}
+.ha:hover{background:var(--gold) !important;color:var(--black) !important;transform:scale(1.1);}
+
+/* Smooth image loading — never hide images */
+img{transition:opacity .4s ease;}
 
 /* Form loading state */
 .fsubmit:disabled{opacity:.7;cursor:not-allowed;}
@@ -526,7 +539,7 @@ img[loading="lazy"].loaded{opacity:1;}
       <div class="slide-cat">Ready Mix Concrete</div>
       <h1>Concrete That <em>Builds</em><br>A Stronger Telangana</h1>
       <p>Fresh, quality-tested ready mix concrete delivered to your site. M10 to M60+ — IS 4926 compliant.</p>
-      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('rmc')">RMC Products</button><button class="btn" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);" onclick="goPage('contact')">Order Concrete →</button></div>
+      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('rmc')">RMC Products</button><button class="btn btn-outline" onclick="goPage('contact')">Order Concrete →</button></div>
     </div>
   </div>
   <div class="slide s2">
@@ -534,7 +547,7 @@ img[loading="lazy"].loaded{opacity:1;}
       <div class="slide-cat">Road Contracting</div>
       <h1>Miles of Roads. <em>Built Right.</em><br>Built to Last.</h1>
       <p>BT roads, CC pavements, highways — delivered on time with certified quality across Telangana.</p>
-      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('roads')">Road Works</button><button class="btn" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);" onclick="goPage('projects')">View Projects →</button></div>
+      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('roads')">Road Works</button><button class="btn btn-outline" onclick="goPage('projects')">View Projects →</button></div>
     </div>
   </div>
   <div class="slide s3">
@@ -542,7 +555,7 @@ img[loading="lazy"].loaded{opacity:1;}
       <div class="slide-cat">Trusted Contractor</div>
       <h1>GHMC · NHAI · <em>HMDA</em> · GMR</h1>
       <p>Class-I empaneled contractor. 12+ years, 150+ projects, 500+ km roads across 8 districts of Telangana.</p>
-      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('about')">About Us</button><button class="btn" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5);" onclick="goPage('contact')">Get a Quote →</button></div>
+      <div class="slide-btns"><button class="btn btn-gold" onclick="goPage('about')">About Us</button><button class="btn btn-outline" onclick="goPage('contact')">Get a Quote →</button></div>
     </div>
   </div>
   <div class="hero-dots" id="hdots"></div>
