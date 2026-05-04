@@ -1174,6 +1174,7 @@ function submitForm(e){
   const msg=document.getElementById('f-msg').value.trim();
   if(!name){alert('Please enter your name.');return;}
   if(!phone||!/^\d{10}$/.test(phone)){alert('Please enter a valid 10-digit phone number.');return;}
+  // Send Email via Web3Forms
   fetch('https://api.web3forms.com/submit',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
@@ -1187,6 +1188,20 @@ function submitForm(e){
       concrete_grade:grade||'Not specified',
       project_details:msg||'Not provided'
     })
+  }).catch(()=>{});
+
+  // Send Telegram notification
+  let tg='New Enquiry - Deepika Constructions\n\n';
+  tg+='Name: '+name+'\n';
+  tg+='Phone: '+country+' '+phone+'\n';
+  if(email) tg+='Email: '+email+'\n';
+  if(type)  tg+='Enquiry Type: '+type+'\n';
+  if(grade) tg+='Concrete Grade: '+grade+'\n';
+  if(msg)   tg+='Details: '+msg+'\n';
+  fetch('https://api.telegram.org/bot8681093008:AAFrVJ-zMKVqmX0CJmKD2XyLeNsfZS33Crc/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:'8667430882',text:tg})
   }).catch(()=>{});
   const btn=document.getElementById('submit-btn');
   btn.textContent='Enquiry Sent!';
