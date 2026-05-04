@@ -68,7 +68,7 @@ nav{position:sticky;top:0;z-index:500;background:var(--white);box-shadow:0 2px 1
 .hero{position:relative;width:100%;height:90vh;min-height:520px;overflow:hidden;}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 /* On mobile: hide video, show poster image only — saves 3–6MB download */
-@media(max-width:768px){.hero-video{display:none;}.hero{background:url('images/img_816e572139.jpg') center/cover no-repeat;}}
+
 .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:1;}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity .9s;z-index:2;pointer-events:none;}
 .slide.on{opacity:1;pointer-events:auto;}
@@ -458,6 +458,14 @@ footer{border-top:3px solid var(--gold);}
 /* Fix btn size */
 .btn{font-size:13px !important;letter-spacing:1.5px !important;padding:11px 22px !important;}
 
+/* Mobile performance — reduce animations, keep all content */
+@media(max-width:768px){
+  .hero-video{display:block !important;}
+  *{animation-duration:.01ms !important;transition-duration:.2s !important;}
+  .wcard:hover,.scard:hover,.rblock:hover,.fleet-card:hover{transform:none;}
+  .hero-overlay{background:rgba(0,0,0,.6);}
+}
+
 /* Outline/ghost button for hero slides */
 .btn-outline{background:transparent !important;color:#fff !important;border:2px solid rgba(255,255,255,.6) !important;backdrop-filter:blur(4px);}
 .btn-outline:hover{background:rgba(255,255,255,.18) !important;border-color:#fff !important;box-shadow:0 6px 20px rgba(255,255,255,.15) !important;}
@@ -532,7 +540,7 @@ img{transition:opacity .4s ease;}
 <div id="pg-home" style="display:block;">
 
 <div class="hero">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/img_816e572139.jpg">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/img_816e572139.jpg">
     <source src="create_a_video_of_rmc_tm_pouri.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
@@ -619,8 +627,8 @@ img{transition:opacity .4s ease;}
     <div class="cta-row"><button class="btn btn-dark" onclick="goPage('roads')">Road Works</button><button class="btn btn-gold" onclick="goPage('projects')">View Projects →</button></div>
   </div>
   <div style="position:relative;overflow:hidden;min-height:460px;">
-    <video autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-      <source src="video_1.mp4" type="video/mp4">
+    <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+      <source data-src="video_1.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:rgba(0,0,0,.35);"></div>
     <div style="position:absolute;bottom:24px;left:24px;right:24px;">
@@ -719,8 +727,8 @@ img{transition:opacity .4s ease;}
 <!-- QUALITY VIDEO -->
 <section class="sec sec-gray" style="padding:0;overflow:hidden;">
   <div style="position:relative;width:100%;background:#000;">
-    <video autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;">
-      <source src="video_2.mp4" type="video/mp4">
+    <video class="lazy-video" autoplay muted loop playsinline preload="none" style="width:100%;height:auto;display:block;">
+      <source data-src="video_2.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.65) 40%,transparent);display:flex;align-items:center;padding:0 6%;">
       <div>
@@ -806,8 +814,8 @@ img{transition:opacity .4s ease;}
     </div>
     <div>
       <div style="position:relative;overflow:hidden;border-radius:4px;min-height:420px;">
-        <video autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-          <source src="video_3.mp4" type="video/mp4">
+        <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="images/img_1ab38401ae.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <source data-src="video_3.mp4" type="video/mp4">
         </video>
         <div style="position:absolute;inset:0;background:rgba(0,0,0,.3);"></div>
       </div>
@@ -1260,10 +1268,27 @@ function mvSlide(dir){
 
 // Lazy image fade-in
 if('IntersectionObserver' in window){
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('loaded');io.unobserve(e.target);}});
+  const imgObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('loaded');imgObserver.unobserve(e.target);}});
   },{rootMargin:'100px'});
-  document.querySelectorAll('img[loading="lazy"]').forEach(img=>io.observe(img));
+  document.querySelectorAll('img[loading="lazy"]').forEach(img=>imgObserver.observe(img));
+
+  // Lazy video loading — only download when scrolled near
+  const vidObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const video=e.target;
+        video.querySelectorAll('source[data-src]').forEach(source=>{
+          source.src=source.dataset.src;
+          source.removeAttribute('data-src');
+        });
+        video.load();
+        video.play().catch(()=>{});
+        vidObserver.unobserve(video);
+      }
+    });
+  },{rootMargin:'200px'});
+  document.querySelectorAll('video.lazy-video').forEach(v=>vidObserver.observe(v));
 }
 </script>
 </body>
